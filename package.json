@@ -1,7 +1,7 @@
 {
   "name": "grunt-sapui5",
   "description": "Extension for SAPUI5 build",
-  "version": "1.3.18a",
+  "version": "1.3.18b",
   "homepage": "https://github.com/theplenkov/grunt-sapui5",
   "author": {
     "name": "theplenkov",
@@ -20,7 +20,7 @@
       "url": "https://github.com/theplenkov/grunt-sapui5/blob/master/LICENSE-MIT"
     }
   ],
-  "devDependencies": {
+  "dependencies": {
     "@sap/grunt-sapui5-bestpractice-build": "^1.3.18",
     "lodash.mergewith": "^4.6.0"
   },
