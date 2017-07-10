@@ -22,12 +22,18 @@ module.exports = function (grunt) {
     }
   };
 
+  var sRoot = oConfig.dir.root.replace(/[.]/, '/');
+
   mergeWith(oConfig,
     {
+
       openui5_preload: {
         preloadTmp: {
           options: {
-            compatVersion: "1.38"
+            compatVersion: "1.38",
+            resources: {
+              prefix: sRoot
+            },
           },
           libraries: true
         }
