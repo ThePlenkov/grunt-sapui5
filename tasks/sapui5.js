@@ -26,11 +26,10 @@ module.exports = function (grunt) {
   // read config
   var oConfig = grunt.config();
 
-  // read manifest.json
-  var oManifest = grunt.file.readJSON(oConfig.dir.webapp + "/manifest.json");
-
-  // if manifest exists
-  if (oManifest) {
+  try {
+    // read manifest.json
+    var oManifest = grunt.file.readJSON(oConfig.dir.webapp + "/manifest.json");
+  } catch (error) {
 
     // take sap.app version
     var oApp = oManifest["sap.app"];
@@ -77,6 +76,7 @@ module.exports = function (grunt) {
           break;
       }
     }
+
   }
 
   // ToDo: replace with find function
