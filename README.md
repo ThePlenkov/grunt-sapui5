@@ -4,6 +4,7 @@
 
 You can find more details here:
 https://www.sap.com/developer/tutorials/webide-grunt-basic.html
+
 or here:
 https://help.sap.com/viewer/825270ffffe74d9f988a0f0066ad59f0/T03b.2017/en-US/1e375da920484bbcb7c46b7b369f137e.html
 
