@@ -1,14 +1,14 @@
 # grunt-sapui5
 
-> Recently SAP released new Web IDE version and grunt plugin for building SAPUI5 projects
+> Recently SAP released new Web IDE version and grunt plugin for building SAPUI5 projects.
 
-You can find more details here:
-https://www.sap.com/developer/tutorials/webide-grunt-basic.html
+> You can find more details here:
+> https://www.sap.com/developer/tutorials/webide-grunt-basic.html
 
-or here:
-https://help.sap.com/viewer/825270ffffe74d9f988a0f0066ad59f0/T03b.2017/en-US/1e375da920484bbcb7c46b7b369f137e.html
+> or here:
+> https://help.sap.com/viewer/825270ffffe74d9f988a0f0066ad59f0/T03b.2017/en-US/1e375da920484bbcb7c46b7b369f137e.html
 
-After starting using it I found a problem: it didn't work for libraries
+After starting using it I found a problem: plugin @sap/grunt-sapui5-bestpractice-build didn't work for libraries
 
 Reviewing the source code I realized that in fact it was just a plugin reusing grunt-openui5 plugin but in a very restricted configuration.
 
