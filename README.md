@@ -40,5 +40,10 @@ Please notice the standard SAP plugin requires webapp folder.
 
 Meanwhile you can redefine config in your Gruntfile.js in a similar way like I did in sapui5.js
 
+To use it locally you will need to register @sap namespace like this:
+```shell  
+  npm config set @sap:registry "https://npm.sap.com" -g
+```
+
 ## Release History
 _(Nothing yet)_
