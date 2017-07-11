@@ -1,89 +1,43 @@
 # grunt-sapui5
 
-> Extension for SAPUI5 build
+> Recently SAP released new Web IDE version and grunt plugin for building SAPUI5 projects
+
+You can find more details here:
+https://www.sap.com/developer/tutorials/webide-grunt-basic.html
+or here:
+https://help.sap.com/viewer/825270ffffe74d9f988a0f0066ad59f0/T03b.2017/en-US/1e375da920484bbcb7c46b7b369f137e.html
+
+After starting using it I found a problem: it didn't work for libraries
+
+Reviewing the source code I realized that in fact it was just a plugin reusing grunt-openui5 plugin but in a very restricted configuration.
+
+Also there were more issue we solved with the current plugin:
+- We left minified Component.js file in the build ( sometimes while navigation we still need them )
+- We transform folder name into module name ( a.b.c into a/b/c ) in preload-* files
 
 ## Getting Started
-This plugin requires Grunt `~0.4.5`
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+This plugin can be used both locally and in the cloud-based IDE. To use it you need to have at least one dependency in your package.json file
 
-```shell
-npm install grunt-sapui5 --save-dev
+```json  
+  "devDependencies": {
+    "grunt-sapui5": "^1.3.18-g"
+  }
 ```
 
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
-
+To build the project you'll need Gruntfile.js containing at least these lines:
 ```js
-grunt.loadNpmTasks('grunt-sapui5');
+module.exports = function (grunt) {
+    'use strict';
+    grunt.loadNpmTasks('grunt-sapui5');
+};
 ```
 
-## The "sapui5" task
+To build the project just type grunt in the console for your project.
 
-### Overview
-In your project's Gruntfile, add a section named `sapui5` to the data object passed into `grunt.initConfig()`.
+Please notice the standard SAP plugin requires webapp folder.
 
-```js
-grunt.initConfig({
-  sapui5: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-});
-```
-
-### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
-
-### Usage Examples
-
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  sapui5: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  sapui5: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+Meanwhile you can redefine config in your Gruntfile.js in a similar way like I did in sapui5.js
 
 ## Release History
 _(Nothing yet)_
