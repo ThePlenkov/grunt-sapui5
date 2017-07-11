@@ -10,59 +10,83 @@
 
 module.exports = function (grunt) {
   'use strict';
+
+  //load SAP task
   grunt.loadNpmTasks('@sap/grunt-sapui5-bestpractice-build');
 
+  // read config
   var oConfig = grunt.config();
 
-  var mergeWith = require('lodash.mergewith');
+  // read manifest.json
+  var oManifest = grunt.file.readJSON(oConfig.dir.webapp + "/manifest.json");
 
-  var customizer = function (objValue, srcValue) {
-    if (Array.isArray(objValue)) {
-      return [srcValue].concat(objValue);
-    }
-  };
+  // if manifest exists
+  if (oManifest) {
 
-  var sRoot = oConfig.dir.root.replace(/[.]/, '/');
+    // take sap.app version
+    var oApp = oManifest["sap.app"];
+    if (oApp) {
+      switch (oApp.type) {
+        // for libraries we should create library.json
+        case "library":
 
-  mergeWith(oConfig,
-    {
+          var mergeWith = require('lodash.mergewith');
 
-      openui5_preload: {
-        preloadTmp: {
-          options: {
-            compatVersion: "1.38",
-            resources: {
-              prefix: sRoot
-            },
-          },
-          libraries: true
-        }
-      },
-      copy: {
-        copyTmpToDist: {
-          files: [
-            {
-              expand: true,
-              src: '**/Component.js',
-              dest: oConfig.dir.dist,
-              cwd: oConfig.dir.tmpDir
-
-            },
-            {
-              expand: true,
-              src: '**/library.js',
-              dest: oConfig.dir.dist,
-              cwd: oConfig.dir.tmpDir
-
+          var customizer = function (objValue, srcValue) {
+            if (Array.isArray(objValue)) {
+              return [srcValue].concat(objValue);
             }
-          ]
-        }
-      }
-    }, customizer
-  );
+          };
 
-  grunt.config("openui5_preload", oConfig.openui5_preload);
-  grunt.config("copy", oConfig.copy);
+          var sRoot = oConfig.dir.root.replace(/[.]/, '/');
+
+          mergeWith(oConfig,
+            {
+
+              openui5_preload: {
+                preloadTmp: {
+                  options: {
+                    compatVersion: "1.38",
+                    resources: {
+                      prefix: sRoot
+                    },
+                  },
+                  libraries: true
+                }
+              },
+              copy: {
+                copyTmpToDist: {
+                  files: [
+                    {
+                      expand: true,
+                      src: '**/Component.js',
+                      dest: oConfig.dir.dist,
+                      cwd: oConfig.dir.tmpDir
+
+                    },
+                    {
+                      expand: true,
+                      src: '**/library.js',
+                      dest: oConfig.dir.dist,
+                      cwd: oConfig.dir.tmpDir
+
+                    }
+                  ]
+                }
+              }
+            }, customizer
+          );
+
+          grunt.config("openui5_preload", oConfig.openui5_preload);
+          grunt.config("copy", oConfig.copy);
+
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
 
   grunt.registerTask('default', [
     'lint',
