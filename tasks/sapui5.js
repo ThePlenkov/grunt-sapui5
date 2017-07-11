@@ -14,6 +14,15 @@ module.exports = function (grunt) {
   //load SAP task
   grunt.loadNpmTasks('@sap/grunt-sapui5-bestpractice-build');
 
+  // merging function
+  var mergeWith = require('lodash.mergewith');
+  var customizer = function (objValue, srcValue) {
+    if (Array.isArray(objValue)) {
+      return [srcValue].concat(objValue);
+    }
+  };
+
+
   // read config
   var oConfig = grunt.config();
 
@@ -29,14 +38,6 @@ module.exports = function (grunt) {
       switch (oApp.type) {
         // for libraries we should create library.json
         case "library":
-
-          var mergeWith = require('lodash.mergewith');
-
-          var customizer = function (objValue, srcValue) {
-            if (Array.isArray(objValue)) {
-              return [srcValue].concat(objValue);
-            }
-          };
 
           var sRoot = oConfig.dir.root.replace(/[.]/, '/');
 
@@ -59,13 +60,6 @@ module.exports = function (grunt) {
                   files: [
                     {
                       expand: true,
-                      src: '**/Component.js',
-                      dest: oConfig.dir.dist,
-                      cwd: oConfig.dir.tmpDir
-
-                    },
-                    {
-                      expand: true,
                       src: '**/library.js',
                       dest: oConfig.dir.dist,
                       cwd: oConfig.dir.tmpDir
@@ -77,9 +71,6 @@ module.exports = function (grunt) {
             }, customizer
           );
 
-          grunt.config("openui5_preload", oConfig.openui5_preload);
-          grunt.config("copy", oConfig.copy);
-
           break;
 
         default:
@@ -87,6 +78,31 @@ module.exports = function (grunt) {
       }
     }
   }
+
+  // ToDo: replace with find function
+  var bHasComponents = true;
+  if (bHasComponents) {
+    mergeWith(oConfig,
+      {
+        copy: {
+          copyTmpToDist: {
+            files: [
+              {
+                expand: true,
+                src: '**/Component.js',
+                dest: oConfig.dir.dist,
+                cwd: oConfig.dir.tmpDir
+
+              }
+            ]
+          }
+        }
+      }, customizer
+    );
+  }
+
+  grunt.config("openui5_preload", oConfig.openui5_preload);
+  grunt.config("copy", oConfig.copy);
 
   grunt.registerTask('default', [
     'lint',
