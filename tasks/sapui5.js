@@ -29,7 +29,6 @@ module.exports = function (grunt) {
   try {
     // read manifest.json
     var oManifest = grunt.file.readJSON(oConfig.dir.webapp + "/manifest.json");
-  } catch (error) {
 
     // take sap.app version
     var oApp = oManifest["sap.app"];
@@ -76,6 +75,8 @@ module.exports = function (grunt) {
           break;
       }
     }
+
+  } catch (error) {
 
   }
 
