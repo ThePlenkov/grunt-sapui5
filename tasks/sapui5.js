@@ -37,7 +37,8 @@ module.exports = function (grunt) {
         // for libraries we should create library.json
         case "library":
 
-          var sRoot = oConfig.dir.root.replace(/[.]/, '/');
+          // a.b.c -> a/b/c
+          var sRoot = oConfig.dir.root.split(".").join("/");
 
           mergeWith(oConfig,
             {
