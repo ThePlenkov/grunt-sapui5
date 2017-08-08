@@ -21,7 +21,7 @@
     }
   ],
   "dependencies": {
-    "@sap/grunt-sapui5-bestpractice-build": "^1.3.18",
+    "@sap/grunt-sapui5-bestpractice-build": "^1.3.19",
     "lodash.mergewith": "^4.6.0"
   },
   "keywords": [
