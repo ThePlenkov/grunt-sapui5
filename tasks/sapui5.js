@@ -32,6 +32,10 @@ module.exports = function (grunt) {
 
     // take sap.app version
     var oApp = oManifest["sap.app"];
+    var oUI5 = oManifest["sap.ui5"];
+
+    var sVersion = (oUI5 && oUI5.dependencies && oUI5.dependencies.minUI5Version) ? oUI5.dependencies.minUI5Version.substring(0, 4) : "1.38";
+
     if (oApp) {
       switch (oApp.type) {
         // for libraries we should create library.json
@@ -46,7 +50,7 @@ module.exports = function (grunt) {
               openui5_preload: {
                 preloadTmp: {
                   options: {
-                    compatVersion: "1.38",
+                    compatVersion: sVersion,
                     resources: {
                       prefix: sRoot
                     },
