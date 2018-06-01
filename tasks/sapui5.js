@@ -28,7 +28,7 @@ module.exports = function (grunt) {
 
   try {
     // read manifest.json
-    var oManifest = grunt.file.readJSON(oConfig.dir.webapp + "/manifest.json");
+    var oManifest = grunt.file.readJSON(oConfig.dir.webapp || oConfig.dir.appFolder + "/manifest.json");
 
     // take sap.app version
     var oApp = oManifest["sap.app"];
@@ -38,6 +38,22 @@ module.exports = function (grunt) {
 
     if (oApp) {
       switch (oApp.type) {
+
+        // updating compatible version for proper build
+        case "application":
+
+          mergeWith(oConfig,
+            {
+              openui5_preload: {
+                preloadTmp: {
+                  options: {
+                    compatVersion: sVersion
+                  }
+                }
+              },
+            }, customizer
+          );
+
         // for libraries we should create library.json
         case "library":
 
