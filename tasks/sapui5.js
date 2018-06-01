@@ -54,6 +54,8 @@ module.exports = function (grunt) {
             }, customizer
           );
 
+          break;
+
         // for libraries we should create library.json
         case "library":
 
@@ -101,27 +103,26 @@ module.exports = function (grunt) {
 
   }
 
-  // ToDo: replace with find function
-  var bHasComponents = true;
-  if (bHasComponents) {
-    mergeWith(oConfig,
-      {
-        copy: {
-          copyTmpToDist: {
-            files: [
-              {
-                expand: true,
-                src: '**/Component.js',
-                dest: oConfig.dir.dist,
-                cwd: oConfig.dir.tmpDir
-
-              }
-            ]
-          }
-        }
-      }, customizer
-    );
-  }
+  // // ToDo: replace with find function
+  // var bHasComponents = true;
+  // if (bHasComponents) {
+  //   mergeWith(oConfig,
+  //     {
+  //       copy: {
+  //         copyTmpToDist: {
+  //           files: [
+  //             {
+  //               expand: true,
+  //               src: '**/Component.js',
+  //               dest: oConfig.dir.dist,
+  //               cwd: oConfig.dir.tmpDir
+  //             }
+  //           ]
+  //         }
+  //       }
+  //     }, customizer
+  //   );
+  // }
 
   grunt.config("openui5_preload", oConfig.openui5_preload);
   grunt.config("copy", oConfig.copy);
